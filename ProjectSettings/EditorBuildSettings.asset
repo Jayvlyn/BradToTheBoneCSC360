@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Kyle/Assets/Scenes/Kyle Scene.unity
+    guid: 846c0d8f5acf8784980eaa7c6ab91ff0
+  - enabled: 1
+    path: Assets/Jacob/Jacob Scene.unity
+    guid: c59c075cf3b07d840a9ef366c54c6509
+  - enabled: 0
+    path: Assets/Scenes/testScene.unity
+    guid: 512d6a5f756f2ec4285e79d43cc86b86
+  - enabled: 0
+    path: Assets/Piper/Piper Scene.unity
+    guid: 1b1abd51f2b417a41b87bbdf5259c93d
+  - enabled: 0
+    path: Assets/Max/Max Scene.unity
+    guid: b719e7fc377bda04599a92690cf0f8de
+  - enabled: 1
+    path: Assets/Chase/GameOver.unity
+    guid: 38f7b7959788baa4ab0ca90fa8da2faf
+  - enabled: 0
+    path: Assets/Chase/Chase Scene.unity
+    guid: 9d4b27178def0f5409496033684e0d4b
+  - enabled: 0
+    path: Assets/Scenes/SampleScene.unity
+    guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/Chase/Tutorial.unity
+    guid: 4f7b1056a0c862443a12a941c7982b23
+  m_configObjects: {}

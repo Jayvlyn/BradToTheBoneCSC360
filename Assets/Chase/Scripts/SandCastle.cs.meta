@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 0c3aa63f00eb10d4ca8351a6b932171e
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - destroyedState: {instanceID: 0}
+  - scoreKeeper: {instanceID: 0}
+  - kickAnim: {fileID: 8540656151174416641, guid: 33ed88821d35e22499e2b9c0f51729a4, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
