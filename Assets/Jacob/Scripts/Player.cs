@@ -316,7 +316,7 @@ public class Player : MonoBehaviour
     public IEnumerator WaitToEnd()
     {
         yield return new WaitForSecondsRealtime(4);
-        GameManager.SwitchScene("Kyle Scene");
+        GameManager.Instance.SwitchScene("Kyle Scene");
     }
 
     public bool FacingRight()

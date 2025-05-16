@@ -57,7 +57,7 @@ public class Wall : BeachObject, IKickable
         // Wall break sound is 1.5 seconds 
         yield return new WaitForSeconds(1.5f);
 
-        GameManager.SwitchScene(sceneComplete);
+        GameManager.Instance.SwitchScene(sceneComplete);
     }
 
 }

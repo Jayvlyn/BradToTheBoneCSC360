@@ -3,15 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public static class GameManager
+public class GameManager : Singleton<GameManager>
 {
-
-    static public void SwitchScene(string sceneName)
+    public void SwitchScene(string sceneName)
     {
         SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
     }
 
-    static public string GetActiveSceneName()
+    public string GetActiveSceneName()
     {
         return SceneManager.GetActiveScene().name;
     }
