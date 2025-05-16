@@ -10,7 +10,7 @@ public class MainMenu : MonoBehaviour
 
     private void Awake()
     {
-        if(GameManager.GetActiveSceneName().Equals("Kyle Scene"))
+        if(GameManager.Instance.GetActiveSceneName().Equals("Kyle Scene"))
         {
             if (!PlayerPrefs.HasKey("screenToggle"))
             {
@@ -54,7 +54,7 @@ public class MainMenu : MonoBehaviour
 
     public void PlayTutorial()
     {
-        GameManager.SwitchScene("Tutorial");
+        GameManager.Instance.SwitchScene("Tutorial");
     }
 
     public void QuitGame()

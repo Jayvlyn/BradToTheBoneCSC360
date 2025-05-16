@@ -41,6 +41,6 @@ public class PauseMenu : MonoBehaviour
     {
         paused = false;
         Time.timeScale = 1.0f;
-        GameManager.SwitchScene("Kyle Scene");
+        GameManager.Instance.SwitchScene("Kyle Scene");
     }
 }
