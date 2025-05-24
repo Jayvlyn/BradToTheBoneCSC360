@@ -1,90 +1,74 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using UnityEngine.XR;
 
 public class ScoreManager : MonoBehaviour
 {
-    public ScriptableValue score;
-    [SerializeField] private TMP_Text scoreText;
-    [SerializeField] private string textBefore;
-    [SerializeField] private bool resetOnLoad;
-    [SerializeField] private bool amBestScore;
-    public float buildupScore = 0;
-    [SerializeField] private ScriptableValue bestScore;
+	[SerializeField] private TMP_Text scoreText;
+	[SerializeField] private string textBefore = "Score: ";
 
-    private float elapsedTime = 0.0f;
-    private float countUpTime = 7.775f;
+	private IScoreMediator mediator;
 
-    private void Start() 
-    {
-        if(resetOnLoad) score.value = 0;
+	private float buildupScore = 0f;
+	private float elapsedTime = 0f;
+	private readonly float countUpTime = 7.775f;
 
-        if (amBestScore)
-        {
-            if (!PlayerPrefs.HasKey("BestScore"))
-            {
-                PlayerPrefs.SetInt("BestScore", score.value);
-                Load();
-            }
-            else
-            {
-                if (score.value > PlayerPrefs.GetInt("BestScore"))
-                {
-                    Save();
-                }
-                Load();
-            }
-        }
-    }
+	private void Awake()
+	{
+		mediator = new ScoreMediator();
+		mediator.LoadBestScore();
+		mediator.RegisterOnScoreChanged(OnScoreChanged);
+	}
 
-    public void Load()
-    {
-        bestScore.value = PlayerPrefs.GetInt("BestScore");
-    }
+	private void Start()
+	{
+		UpdateScoreText();
+	}
 
-    public void Save()
-    {
-        PlayerPrefs.SetInt("BestScore", score.value);
-    }
+	private void OnScoreChanged(int newScore)
+	{
+		buildupScore = 0f;
+		elapsedTime = 0f;
+		UpdateScoreText();
+	}
 
-    private void Update()
-    {
-        if (GameManager.GetActiveSceneName().Equals("GameOver"))
-        {
-            if (amBestScore)
-            {
-                if (bestScore.value - buildupScore < 100) buildupScore = bestScore.value;
-                else
-                {
-                    buildupScore = (Mathf.Lerp(0, bestScore.value, elapsedTime/countUpTime));
-                    elapsedTime += Time.deltaTime;
-                    
-                }
-                scoreText.text = textBefore + (int)buildupScore;
-            } 
-            else
-            {
-                if (score.value - buildupScore < 100) buildupScore = score.value;
-                else
-                {
-                    buildupScore = (Mathf.Lerp(0, score.value, elapsedTime/countUpTime));
-                    elapsedTime += Time.deltaTime;
-                }
-                scoreText.text = textBefore + (int)buildupScore;
-            }
-        }
-        else
-        {
-            if (amBestScore)
-            {
-                scoreText.text = textBefore + (int)bestScore.value;
-            }
-            else
-            {
-                scoreText.text = textBefore + (int)score.value;
-            }
-        }
-    }
+	private void Update()
+	{
+		if (mediator.IsGameOverScene())
+		{
+			int targetScore = mediator.GetBestScore();
+
+			if (targetScore - buildupScore < 100)
+			{
+				buildupScore = targetScore;
+			}
+			else
+			{
+				buildupScore = Mathf.Lerp(0, targetScore, elapsedTime / countUpTime);
+				elapsedTime += Time.deltaTime;
+			}
+
+			scoreText.text = textBefore + (int)buildupScore;
+		}
+		else
+		{
+			UpdateScoreText();
+		}
+	}
+
+	private void UpdateScoreText()
+	{
+		int displayScore = mediator.IsGameOverScene() ? (int)buildupScore : mediator.GetCurrentScore();
+		scoreText.text = textBefore + displayScore;
+	}
+
+	public void AddScore(int amount)
+	{
+		int newScore = mediator.GetCurrentScore() + amount;
+		mediator.UpdateCurrentScore(newScore);
+	}
+
+	public void SaveBestScore()
+	{
+		mediator.SaveBestScore();
+	}
 }
